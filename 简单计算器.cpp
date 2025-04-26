@@ -1,35 +1,73 @@
 #include <iostream>
+#include <limits> // ç”¨äºè¾“å…¥éªŒè¯
 using namespace std;
+
+void clearInput() {
+    cin.clear(); // æ¸…é™¤é”™è¯¯çŠ¶æ€
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // å¿½ç•¥é”™è¯¯è¾“å…¥
+}
 
 int main() {
     char op;
     double num1, num2;
+    bool continueCalculation = true;
 
-    cout << "ÊäÈëÔËËã·û (+, -, *, /): ";
-    cin >> op;
+    cout << "===== ç®€å•è®¡ç®—å™¨ =====\n";
+    cout << "æ”¯æŒè¿ç®—: +, -, *, /\n";
+    cout << "è¾“å…¥'q'é€€å‡ºç¨‹åº\n\n";
 
-    cout << "ÊäÈëÁ½¸ö²Ù×÷Êı: ";
-    cin >> num1 >> num2;
+    while (continueCalculation) {
+        // è·å–è¿ç®—ç¬¦
+        while (true) {
+            cout << "è¾“å…¥è¿ç®—ç¬¦ (+, -, *, /) æˆ– 'q' é€€å‡º: ";
+            cin >> op;
 
-    switch (op) {
-    case '+':
-        cout << "½á¹û: " << num1 + num2;
-        break;
-    case '-':
-        cout << "½á¹û: " << num1 - num2;
-        break;
-    case '*':
-        cout << "½á¹û: " << num1 * num2;
-        break;
-    case '/':
-        if (num2 != 0.0)
-            cout << "½á¹û: " << num1 / num2;
-        else
-            cout << "´íÎó: ³ıÊı²»ÄÜÎªÁã";
-        break;
-    default:
-        cout << "´íÎó: ÎŞĞ§µÄÔËËã·û";
+            if (op == 'q') {
+                continueCalculation = false;
+                break;
+            }
+
+            if (op == '+' || op == '-' || op == '*' || op == '/') {
+                break;
+            }
+
+            cout << "é”™è¯¯: æ— æ•ˆçš„è¿ç®—ç¬¦ï¼Œè¯·é‡æ–°è¾“å…¥\n";
+            clearInput();
+        }
+
+        if (!continueCalculation) break;
+
+        // è·å–æ“ä½œæ•°
+        cout << "è¾“å…¥ä¸¤ä¸ªæ“ä½œæ•°: ";
+        while (!(cin >> num1 >> num2)) {
+            cout << "é”™è¯¯: è¯·è¾“å…¥æœ‰æ•ˆçš„æ•°å­—: ";
+            clearInput();
+        }
+
+        // æ‰§è¡Œè®¡ç®—
+        switch (op) {
+        case '+':
+            cout << "ç»“æœ: " << num1 + num2 << "\n\n";
+            break;
+        case '-':
+            cout << "ç»“æœ: " << num1 - num2 << "\n\n";
+            break;
+        case '*':
+            cout << "ç»“æœ: " << num1 * num2 << "\n\n";
+            break;
+        case '/':
+            if (num2 != 0.0) {
+                cout << "ç»“æœ: " << num1 / num2 << "\n\n";
+            }
+            else {
+                cout << "é”™è¯¯: é™¤æ•°ä¸èƒ½ä¸ºé›¶\n\n";
+            }
+            break;
+        }
+
+        clearInput(); // ä¸ºä¸‹ä¸€æ¬¡è®¡ç®—å‡†å¤‡
     }
 
+    cout << "è®¡ç®—å™¨å·²é€€å‡º\n";
     return 0;
 }
